@@ -61,7 +61,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.mapView.map.mapStatus.target
+        binding.mapView.map.uiSettings.isRotateGesturesEnabled = false
         binding.mapView.map.setOnMapStatusChangeListener(object :BaiduMap.OnMapStatusChangeListener{
             override fun onMapStatusChangeStart(p0: MapStatus?) {
 
@@ -99,6 +99,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
     }
 
     private fun showLockMarker(target: LatLng) {
+        toast(target.toString())
         lockMarker.position = target
         lockMarker.isVisible = true
     }
@@ -145,12 +146,12 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
                     location.time = System.currentTimeMillis()
                     location.latitude = latitude
                     location.longitude = longitude
-                    location.altitude = 2.0
-                    location.accuracy = 3f
+                    location.altitude = 0.0
+                    location.accuracy = 1f
                     location.time = System.currentTimeMillis()
                     location.elapsedRealtimeNanos = SystemClock.elapsedRealtimeNanos();
                     locationManager.setTestProviderLocation(LocationManager.GPS_PROVIDER,location)
-                    delay(1000)
+                    delay(100)
                 }
             }
         }
