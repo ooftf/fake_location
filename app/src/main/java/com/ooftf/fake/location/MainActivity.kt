@@ -15,6 +15,10 @@ import com.ooftf.arch.frame.mvvm.activity.BaseViewBindingActivity
 import com.ooftf.fake.location.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.baidu.mapapi.utils.CoordinateConverter
+
+
+
 
 class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
     val locationManager by lazy {
@@ -138,14 +142,21 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
     }
 
     fun startFakeLocation(longitude:Double, latitude:Double){
+
+       val result =  CoordinateUtils.bd09ToWGS84(longitude,latitude)
+
+//        val converter = CoordinateConverter()
+//            .from(CoordinateConverter.CoordType.GPS)
+//            .coord(LatLng(latitude,longitude))
+//        val desLatLng = converter.convert()
         initTestProvider()
         if(initTestProvider){
             lifecycleScope.launch {
                 while (isFaking){
                     val location = Location(LocationManager.GPS_PROVIDER)
                     location.time = System.currentTimeMillis()
-                    location.latitude = latitude
-                    location.longitude = longitude
+                    location.latitude = result[1]
+                    location.longitude = result[0]
                     location.altitude = 0.0
                     location.accuracy = 1f
                     location.time = System.currentTimeMillis()
