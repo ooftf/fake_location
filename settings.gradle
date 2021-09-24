@@ -1,0 +1,17 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+        maven {
+            credentials {
+                username '5f0eaf7299d2094b1a8c6600'
+                password 'JWiB]Owny)E7'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2017033-release-61klBZ/'
+        }
+    }
+}
+rootProject.name = "fake_location"
+include ':app'
