@@ -6,6 +6,7 @@ import android.location.LocationManager
 import android.location.provider.ProviderProperties
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
@@ -16,8 +17,7 @@ import com.ooftf.fake.location.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.baidu.mapapi.utils.CoordinateConverter
-
-
+import com.ooftf.log.JLog
 
 
 class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
@@ -131,7 +131,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
         try {
             locationManager.addTestProvider(
                 LocationManager.GPS_PROVIDER, false, true, false, false, true, true,
-                true, ProviderProperties.POWER_USAGE_LOW, ProviderProperties.ACCURACY_FINE
+                true, ProviderProperties.POWER_USAGE_HIGH, ProviderProperties.ACCURACY_FINE
             )
             locationManager.setTestProviderEnabled(LocationManager.GPS_PROVIDER, true)
             initTestProvider = true
@@ -157,17 +157,16 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
                     location.time = System.currentTimeMillis()
                     location.latitude = result[1]
                     location.longitude = result[0]
-                    location.altitude = 0.0
-                    location.accuracy = 1f
+                    location.altitude = 2.0
+                    location.accuracy = 2f
                     location.time = System.currentTimeMillis()
                     location.elapsedRealtimeNanos = SystemClock.elapsedRealtimeNanos();
                     locationManager.setTestProviderLocation(LocationManager.GPS_PROVIDER,location)
-                    delay(100)
+                    JLog.e("setTestProviderLocation")
+                    delay(10)
                 }
             }
         }
-
-
     }
 
     fun stopFakeLocation(){
